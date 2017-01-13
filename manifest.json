@@ -1,0 +1,7 @@
+{
+  "name": "messenger",
+  "short_name": "messenger",
+  "description": "Clon de MSN",
+  "start_url": "/",
+  "display": "standalone"
+}
