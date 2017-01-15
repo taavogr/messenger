@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 
 <dom-module id="messenger-login">
 
@@ -17,17 +19,35 @@ paper-button{
 }
 	
 </style>
+<firebase-auth id="auth"></firebase-auth>
+<form is="iron-form" id="form">
 
-<paper-input label="Correo electrónico" type="email" required="true"> </paper-input>
+<paper-input label="Correo electrónico" type="email" required="true" id="email"> </paper-input>
 
-<paper-input label="Contraseña" type="password" required="true"> </paper-input>
+<paper-input label="Contraseña" type="password" required="true" id="password"> </paper-input>
 
 <paper-button raised id="button">Ingresar</paper-button>
+</form>
 	
 </template>
-<script type="text/javascript">
+
+<script>
 	Polymer({
-		is: "messenger-login"
+		is: "messenger-login",
+		ready: function(){
+			this.$.button.addEventListener("click", ()=> this.sendForm())
+		},
+		sendForm: function(){
+
+			var email = this.$.email.value
+			var password = this.$.password.value
+
+			this.$.auth.createUserWithEmailAndPassword(email,password)
+			.then(function(){
+				console.log("Usuario Creado")
+			})
+
+		}
 	})
 </script>
 	
