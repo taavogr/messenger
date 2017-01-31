@@ -56,8 +56,9 @@ paper-button{
 			if (this.signUp) {
 
 			this.$.auth.createUserWithEmailAndPassword(this.email,this.password)
-			.then(function(){
-				console.log("Usuario Creado")
+			.then((user)=>{
+				this.createUser(user)
+
 			})
 
 			}else{
@@ -66,9 +67,15 @@ paper-button{
 				console.log("Sesion Iniciada")
 			})
 			}
+		},
+		createUser: function(firebaseUser){
+			firebase.database().ref("/users/"+firebaseUser.uid).set({
+				name: firebaseUser.email,
+				email: firebaseUser.email,
+				uid: firebaseUser.uid,
+				photoURL: "https://i.ytimg.com/vi/EfwPqRYNgaE/hqdefault.jpg"
 
-			
-
+			})
 		}
 	})
 </script>
